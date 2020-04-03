@@ -49,7 +49,8 @@ class Octotiger(CMakePackage):
                )
     depends_on('kokkos-nvcc-wrapper',
                when='+kokkos',
-               patches='Add-dumpversion-option-to-nvcc_wrapper.patch'
+               patches=['Add-dumpversion-option-to-nvcc_wrapper.patch',
+                        'Eval-for-compiler-calls-nvvcc_wrapper.patch']
                )
 
     def cmake_args(self):
