@@ -27,7 +27,10 @@ class Octotiger(CMakePackage):
             description='Build octotiger with kokkos based kernels')
 
 
-    # depends_on('hpx-kokkos-interopt-wip', #TODO export targets in this repo
+    depends_on('hpx-kokkos-interopt-wip',
+               when='+kokkos',
+               )
+
     depends_on('kokkos-hpx-interop',
                when='+kokkos',
                )
@@ -71,7 +74,7 @@ class Octotiger(CMakePackage):
             '-DOCTOTIGER_THETA_MINIMUM={0}'.format(spec.variants['theta_minimum'].value))
 
         # Kokkos
-        args.append(self.define_from_variant('DOCTOTIGER_WITH_KOKKOS', 'kokkos'))
+        args.append(self.define_from_variant('OCTOTIGER_WITH_KOKKOS', 'kokkos'))
 
         # set nvcc_wrapper as compiler
         if '+kokkos' in spec:
