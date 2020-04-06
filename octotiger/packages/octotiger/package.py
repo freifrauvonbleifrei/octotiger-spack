@@ -14,6 +14,7 @@ class Octotiger(CMakePackage):
             description='Build octotiger with CUDA (also allows Kokkos kernels to run with CUDA)')
     variant('vc', default=True, description='Enable CPU vectorization')
     variant('test', default=True, description='Enable octotiger tests')
+    variant('mpi', default=True, description='Build with MPI dependencies')
 
     variant(
         'griddim', default='8', description='Octotiger grid size',
@@ -44,14 +45,17 @@ class Octotiger(CMakePackage):
 
     depends_on('cmake@3.12.4:', type='build')
     depends_on('vc@1.4.1', when='+vc')
-    depends_on('boost')
-    depends_on('hdf5@:1.10.999 +mpi +cxx')
-    depends_on('silo +mpi')
+    depends_on('boost +mpi', when='+mpi')
+    depends_on('boost -mpi', when='-mpi')
+    depends_on('hdf5@:1.10.999 +cxx +mpi', when='+mpi')
+    depends_on('hdf5@:1.10.999 +cxx -mpi', when='-mpi')
+    depends_on('silo +mpi', when='+mpi')
+    depends_on('silo -mpi', when='-mpi')
 
     depends_on('cuda', when='+cuda')
     
     hpx_string = 'hpx@1.4.1 cxxstd=14'
-    depends_on(hpx_string + ' +cuda', when='+cuda')
+    depends_on(hpx_string + ' +cuda', when='+cuda') #networking=mpi ?
     depends_on(hpx_string + ' -cuda', when='-cuda')
 
     kokkos_string = 'kokkos @3.0 +serial +hpx +hpx_async_dispatch std=14'
