@@ -26,7 +26,8 @@ class HpxKokkosInteroptWip(CMakePackage): # only headers are currently used
         spec = self.spec
         args = []
 
-        args.append("-DCMAKE_CXX_COMPILER=%s" %
-                    self.spec["kokkos-nvcc-wrapper"].kokkos_cxx)
+        if '+cuda' in spec:
+            args.append("-DCMAKE_CXX_COMPILER=%s" %
+                        self.spec["kokkos-nvcc-wrapper"].kokkos_cxx)
 
         return args

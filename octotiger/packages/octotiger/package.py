@@ -28,7 +28,7 @@ class Octotiger(CMakePackage):
 
 
     # (probably) intermediate packages to allow cuda stream futures and recycling views
-    depends_on('hpx-kokkos-interopt-wip -cuda',
+    depends_on('hpx-kokkos-interopt-wip +cuda',
                when='+kokkos +cuda',
                )
     depends_on('hpx-kokkos-interopt-wip -cuda',
