@@ -10,7 +10,9 @@ The easiest way to do this is often (depending on your SHELL):
 > source spack/share/spack/setup-env.sh
 ````
 
-After downloading the octotiger-spack GitHub repository, you simply need to run
+After downloading the octotiger-spack GitHub repository, you need to add the kokkos-spack repository according to the instructions on their [Github Page](https://github.com/kokkos/kokkos-spack).
+
+Then, to add the octotiger spack package, you simply need to run
 ````
 > spack repo add octotiger-spack/octotiger
 ````
