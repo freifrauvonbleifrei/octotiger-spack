@@ -7,6 +7,7 @@ class HpxKokkosInteroptWip(CMakePackage): # only headers are currently used
         branch='master')
 
     variant('cuda', default=True)
+    variant('mpi', default=True)
 
     depends_on('kokkos-hpx-interop')
     
@@ -18,8 +19,11 @@ class HpxKokkosInteroptWip(CMakePackage): # only headers are currently used
     depends_on('kokkos @3.0 +serial +hpx +hpx_async_dispatch std=14',
         # patches='diff-from-kokkos3000-to-msimberg-62acb6051818.patch'
     )
-    depends_on('kokkos-nvcc-wrapper',
-               when='+cuda'
+    depends_on('kokkos-nvcc-wrapper~mpi',
+               when='+cuda~mpi'
+               )
+    depends_on('kokkos-nvcc-wrapper+mpi',
+               when='+cuda+mpi'
                )
     
     def cmake_args(self):
