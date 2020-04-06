@@ -11,7 +11,7 @@ class Octotiger(CMakePackage):
             branch='master')
 
     variant('cuda', default=True,
-            description='Build octotiger fmm kernels with CUDA directly, not only the Kokkos/HPX parallel magic')
+            description='Build octotiger with CUDA (also allows Kokkos kernels to run with CUDA)')
     variant('vc', default=True, description='Enable CPU vectorization')
     variant('test', default=True, description='Enable octotiger tests')
 
@@ -27,28 +27,43 @@ class Octotiger(CMakePackage):
             description='Build octotiger with kokkos based kernels')
 
 
-    depends_on('hpx-kokkos-interopt-wip',
-               when='+kokkos',
+    # (probably) intermediate packages to allow cuda stream futures and recycling views
+    depends_on('hpx-kokkos-interopt-wip -cuda',
+               when='+kokkos +cuda',
+               )
+    depends_on('hpx-kokkos-interopt-wip -cuda',
+               when='+kokkos -cuda',
                )
 
-    depends_on('kokkos-hpx-interop',
-               when='+kokkos',
+    depends_on('kokkos-hpx-interop +cuda',
+               when='+kokkos +cuda',
+               )
+    depends_on('kokkos-hpx-interop -cuda',
+               when='+kokkos -cuda',
                )
 
-    depends_on('cmake@3.10:', type='build')
+    depends_on('cmake@3.12.4:', type='build')
     depends_on('vc@1.4.1', when='+vc')
     depends_on('boost')
     depends_on('hdf5@:1.10.999 +mpi +cxx')
-    depends_on('silo+mpi')
-    depends_on('hpx@1.4.1 +cuda cxxstd=14')
+    depends_on('silo +mpi')
 
     depends_on('cuda', when='+cuda')
-    depends_on('kokkos @3.0 +serial +cuda +cuda_lambda +hpx +hpx_async_dispatch +wrapper std=14',
-               # cxxstd=c++14 # call e.g. for daint  with ^kokkos+pascal60+hsw
-               when='+kokkos',
+    
+    hpx_string = 'hpx@1.4.1 cxxstd=14'
+    depends_on(hpx_string + ' +cuda', when='+cuda')
+    depends_on(hpx_string + ' -cuda', when='-cuda')
+
+    kokkos_string = 'kokkos @3.0 +serial +hpx +hpx_async_dispatch std=14'
+    depends_on(kokkos_string + ' +cuda +cuda_lambda +wrapper',
+               when='+kokkos +cuda',
                )
+    depends_on(kokkos_string + ' -cuda -cuda_lambda -wrapper',
+               when='+kokkos -cuda',
+               )
+
     depends_on('kokkos-nvcc-wrapper',
-               when='+kokkos',
+               when='+kokkos +cuda',
                patches=['Add-dumpversion-option-to-nvcc_wrapper.patch',
                         'Eval-for-compiler-calls-nvvcc_wrapper.patch']
                )
@@ -78,7 +93,7 @@ class Octotiger(CMakePackage):
         args.append(self.define_from_variant('OCTOTIGER_WITH_KOKKOS', 'kokkos'))
 
         # set nvcc_wrapper as compiler
-        if '+kokkos' in spec:
+        if '+kokkos' in spec and '+cuda' in spec:
             args.append("-DCMAKE_CXX_COMPILER=%s" %
                         self.spec["kokkos-nvcc-wrapper"].kokkos_cxx)
 
