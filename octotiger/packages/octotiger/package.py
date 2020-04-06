@@ -21,7 +21,7 @@ class Octotiger(CMakePackage):
     )
     variant(
         'theta_minimum', default='0.34', description='Octotiger minimal allowed theta value',
-        values=('0.34'), multi=False
+        values=('0.34', '0.5', '0.16'), multi=False
     )
     variant('kokkos', default=True,
             description='Build octotiger with kokkos based kernels')
