@@ -28,18 +28,28 @@ This will print all the information about how to install Octotiger with Spack.
 
 To allow octotiger to be built with the right variants of hpx and kokkos, it is best to specify those manually, e.g. for piz daint:
 ````
-spack spec octotiger +cuda +kokkos ^hpx cuda_arch=60 ^kokkos cuda_arch=60 +pascal60 +hsw
+> spack spec octotiger +cuda +kokkos ^hpx cuda_arch=60 ^kokkos cuda_arch=60 +pascal60 +hsw
 ````
 
 This command here can be run in the build directory, to produce a `spconfig.py` file as a drop-in for the cmake call...
 ````
-spack setup octotiger@local +cuda +kokkos ^hpx cuda_arch=60 ^kokkos cuda_arch=60 +pascal60 +hsw
+> spack setup octotiger@local +cuda +kokkos ^hpx cuda_arch=60 ^kokkos cuda_arch=60 +pascal60 +hsw
 ````
 
 ...which can be used for development builds.
 ````
-python spconfig.py -DCMAKE_CUDA_FLAGS="-arch=sm_60" ../octotiger
+> python spconfig.py -DCMAKE_CUDA_FLAGS="-arch=sm_60" ../octotiger
 ````
+
+If you encounter an error with `spack setup` and `'SPACK_DEPENDENCIES'`, it is connected to the issue described here:
+https://github.com/spack/spack/pull/10715
+
+and can be fixed by executing
+````
+git fetch git@github.com:spack/spack.git refs/pull/10715/head
+git merge FETCH_HEAD
+````
+in the spack repo (only necessary as long as the PR is not yet merged).
 
 For detailed instructions on how to use Spack, see the [User Manual](https://spack.readthedocs.io).
 
