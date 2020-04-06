@@ -7,6 +7,8 @@ class Octotiger(CMakePackage):
 
     version('octotiger_with_kokkos', git='https://github.com/STEllAR-GROUP/octotiger.git',
             branch='octotiger_with_kokkos')
+    version('kokkos_alternative_build', git='https://github.com/STEllAR-GROUP/octotiger.git',
+            branch='kokkos_alternative_build')
     version('master', git='https://github.com/STEllAR-GROUP/octotiger.git',
             branch='master')
 

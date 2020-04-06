@@ -3,7 +3,7 @@ class HpxKokkosInteroptWip(CMakePackage): # only headers are currently used
 
     url = "https://github.com/G-071/hpx-kokkos-interopt-WIP"
 
-    version('master', git='git@github.com:G-071/hpx-kokkos-interopt-WIP.git',
+    version('master', git='https://github.com/G-071/hpx-kokkos-interopt-WIP.git',
         branch='master')
 
     variant('cuda', default=True)

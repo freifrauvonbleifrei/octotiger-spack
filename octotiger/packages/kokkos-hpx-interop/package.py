@@ -2,7 +2,7 @@ class KokkosHpxInterop(CMakePackage):
 
     url = "https://github.com/msimberg/kokkos-hpx-interop"
 
-    version('master', git='git@github.com:msimberg/kokkos-hpx-interop.git',
+    version('master', git='https://github.com/msimberg/kokkos-hpx-interop.git',
         branch='master')
 
     variant('cuda', default=True)
