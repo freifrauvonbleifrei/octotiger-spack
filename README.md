@@ -35,7 +35,7 @@ To allow octotiger to be built with the right variants of hpx and kokkos, it is 
 
 This command here can be run in the build directory, to produce a `spconfig.py` file as a drop-in for the cmake call...
 ````
-> spack setup octotiger@local +cuda +kokkos ^hpx cuda_arch=60 ^kokkos cuda_arch=60 +pascal60 +hsw
+> spack setup octotiger@master +cuda +kokkos ^hpx cuda_arch=60 ^kokkos cuda_arch=60 +pascal60 +hsw
 ````
 
 ...which can be used for development builds.
@@ -46,7 +46,11 @@ This command here can be run in the build directory, to produce a `spconfig.py` 
 If you encounter an error with `spack setup` and `'SPACK_DEPENDENCIES'`, it is connected to the issue described here:
 https://github.com/spack/spack/pull/10715
 
-and can be fixed by executing
+and can be fixed either by executing
+````
+> export SPACK_DEPENDENCIES=
+````
+each time, or doing this here once
 ````
 git fetch git@github.com:spack/spack.git refs/pull/10715/head
 git merge FETCH_HEAD
