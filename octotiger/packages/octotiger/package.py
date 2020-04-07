@@ -7,6 +7,8 @@ class Octotiger(CMakePackage):
 
     version('octotiger_with_kokkos', git='https://github.com/STEllAR-GROUP/octotiger.git',
             branch='octotiger_with_kokkos')
+    version('kokkos_alternative_build', git='https://github.com/STEllAR-GROUP/octotiger.git',
+            branch='kokkos_alternative_build')
     version('master', git='https://github.com/STEllAR-GROUP/octotiger.git',
             branch='master')
 
@@ -29,11 +31,17 @@ class Octotiger(CMakePackage):
 
 
     # (probably) intermediate packages to allow cuda stream futures and recycling views
-    depends_on('hpx-kokkos-interopt-wip +cuda',
-               when='+kokkos +cuda',
+    depends_on('hpx-kokkos-interopt-wip +cuda -mpi',
+               when='+kokkos +cuda -mpi',
                )
-    depends_on('hpx-kokkos-interopt-wip -cuda',
-               when='+kokkos -cuda',
+    depends_on('hpx-kokkos-interopt-wip -cuda -mpi',
+               when='+kokkos -cuda -mpi',
+               )
+    depends_on('hpx-kokkos-interopt-wip +cuda +mpi',
+               when='+kokkos +cuda +mpi',
+               )
+    depends_on('hpx-kokkos-interopt-wip -cuda +mpi',
+               when='+kokkos -cuda +mpi',
                )
 
     depends_on('kokkos-hpx-interop +cuda',
