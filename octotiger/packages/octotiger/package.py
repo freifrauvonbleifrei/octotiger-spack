@@ -45,8 +45,8 @@ class Octotiger(CMakePackage):
 
     depends_on('cmake@3.12.4:', type='build')
     depends_on('vc@1.4.1', when='+vc')
-    depends_on('boost +mpi', when='+mpi')
-    depends_on('boost -mpi', when='-mpi')
+    depends_on('boost cxxstd=14 +mpi', when='+mpi')
+    depends_on('boost cxxstd=14 -mpi', when='-mpi')
     depends_on('hdf5@:1.10.999 +cxx +mpi', when='+mpi')
     depends_on('hdf5@:1.10.999 +cxx -mpi', when='-mpi')
     depends_on('silo +mpi', when='+mpi')
