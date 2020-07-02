@@ -12,8 +12,6 @@ class KokkosHpxInterop(CMakePackage):
 
     depends_on('cuda', when='+cuda')
     depends_on('kokkos@develop +serial +hpx +hpx_async_dispatch std=14', 
-        #cxxstd=c++14 # call e.g. for daint  with ^kokkos+pascal60+hsw
-        patches='diff-from-kokkos3000-to-msimberg-62acb6051818.patch'
     )
     
     def cmake_args(self):

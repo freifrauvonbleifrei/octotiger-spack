@@ -30,7 +30,6 @@ class Octotiger(CMakePackage):
             description='Build octotiger with kokkos based kernels')
 
 
-    # (probably) intermediate packages to allow cuda stream futures and recycling views
     depends_on('hpx-kokkos-interopt-wip +cuda -mpi',
                when='+kokkos +cuda -mpi',
                )
@@ -53,8 +52,8 @@ class Octotiger(CMakePackage):
 
     depends_on('cmake@3.12.4:', type='build')
     depends_on('vc@1.4.1', when='+vc')
-    depends_on('boost cxxstd=14 +mpi', when='+mpi')
-    depends_on('boost cxxstd=14 -mpi', when='-mpi')
+    depends_on('boost@1.70.0 cxxstd=14 +mpi', when='+mpi')
+    depends_on('boost@1.70.0 cxxstd=14 -mpi', when='-mpi')
     depends_on('hdf5@:1.10.999 +cxx +mpi', when='+mpi')
     depends_on('hdf5@:1.10.999 +cxx -mpi', when='-mpi')
     depends_on('silo +mpi', when='+mpi')
@@ -66,8 +65,8 @@ class Octotiger(CMakePackage):
     depends_on(hpx_string + ' +cuda', when='+cuda') #networking=mpi ?
     depends_on(hpx_string + ' -cuda', when='-cuda')
 
-    kokkos_string = 'kokkos@develop +serial +hpx +hpx_async_dispatch std=14'
-    depends_on(kokkos_string + ' +cuda +cuda_lambda +wrapper +cuda_relocatable_device_code',
+    kokkos_string = 'kokkos@develop +serial +hpx +hpx_async_dispatch'
+    depends_on(kokkos_string + ' +cuda +cuda_lambda +wrapper ',
                when='+kokkos +cuda',
                )
     depends_on(kokkos_string + ' -cuda -cuda_lambda -wrapper',
