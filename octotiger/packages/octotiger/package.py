@@ -62,12 +62,12 @@ class Octotiger(CMakePackage):
 
     depends_on('cuda', when='+cuda')
     
-    hpx_string = 'hpx@1.4.1 cxxstd=14'
+    hpx_string = 'hpx@master cxxstd=14'
     depends_on(hpx_string + ' +cuda', when='+cuda') #networking=mpi ?
     depends_on(hpx_string + ' -cuda', when='-cuda')
 
-    kokkos_string = 'kokkos @3.0 +serial +hpx +hpx_async_dispatch std=14'
-    depends_on(kokkos_string + ' +cuda +cuda_lambda +wrapper',
+    kokkos_string = 'kokkos@develop +serial +hpx +hpx_async_dispatch std=14'
+    depends_on(kokkos_string + ' +cuda +cuda_lambda +wrapper +cuda_relocatable_device_code',
                when='+kokkos +cuda',
                )
     depends_on(kokkos_string + ' -cuda -cuda_lambda -wrapper',

@@ -12,12 +12,10 @@ class HpxKokkosInteroptWip(CMakePackage): # only headers are currently used
     depends_on('kokkos-hpx-interop')
     
     depends_on('cmake@3.13.4:', type='build')
-    depends_on('hpx@1.4.1 cxxstd=14', 
-        # patches='diff-from-hpx141-to-msimberg-hpx-ce4ea77805.patch'
+    depends_on('hpx@master cxxstd=14', 
     )
     depends_on('cuda', when='+cuda')
-    depends_on('kokkos @3.0 +serial +hpx +hpx_async_dispatch std=14',
-        # patches='diff-from-kokkos3000-to-msimberg-62acb6051818.patch'
+    depends_on('kokkos @develop +serial +hpx +hpx_async_dispatch std=14',
     )
     depends_on('kokkos-nvcc-wrapper~mpi',
                when='+cuda~mpi'
