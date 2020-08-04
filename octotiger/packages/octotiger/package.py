@@ -30,16 +30,16 @@ class Octotiger(CMakePackage):
             description='Build octotiger with kokkos based kernels')
 
 
-    depends_on('hpx-kokkos-interopt-wip +cuda -mpi',
+    depends_on('cppuddle +cuda -mpi',
                when='+kokkos +cuda -mpi',
                )
-    depends_on('hpx-kokkos-interopt-wip -cuda -mpi',
+    depends_on('cppuddle -cuda -mpi',
                when='+kokkos -cuda -mpi',
                )
-    depends_on('hpx-kokkos-interopt-wip +cuda +mpi',
+    depends_on('cppuddle +cuda +mpi',
                when='+kokkos +cuda +mpi',
                )
-    depends_on('hpx-kokkos-interopt-wip -cuda +mpi',
+    depends_on('cppuddle -cuda +mpi',
                when='+kokkos -cuda +mpi',
                )
 
@@ -64,9 +64,11 @@ class Octotiger(CMakePackage):
     hpx_string = 'hpx@master cxxstd=14'
     depends_on(hpx_string + ' +cuda', when='+cuda') #networking=mpi ?
     depends_on(hpx_string + ' -cuda', when='-cuda')
+    #depends_on(hpx_string + ' +cuda', when='+cuda', patches='header.patch') #networking=mpi ?
+    #depends_on(hpx_string + ' -cuda', when='-cuda', patches='header.patch')
 
-    kokkos_string = 'kokkos@develop +serial +hpx +hpx_async_dispatch'
-    depends_on(kokkos_string + ' +cuda +cuda_lambda +wrapper ',
+    kokkos_string = 'kokkos +serial +hpx +hpx_async_dispatch'
+    depends_on(kokkos_string + ' +cuda +cuda_lambda +wrapper',
                when='+kokkos +cuda',
                )
     depends_on(kokkos_string + ' -cuda -cuda_lambda -wrapper',
