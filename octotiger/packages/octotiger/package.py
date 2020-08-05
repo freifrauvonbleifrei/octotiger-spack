@@ -30,12 +30,7 @@ class Octotiger(CMakePackage):
             description='Build octotiger with kokkos based kernels')
 
 
-    depends_on('cppuddle +cuda -mpi',
-               when='+kokkos +cuda -mpi',
-               )
-    depends_on('cppuddle -cuda -mpi',
-               when='+kokkos -cuda -mpi',
-               )
+    depends_on('cppuddle')
     depends_on('cppuddle +cuda +mpi',
                when='+kokkos +cuda +mpi',
                )
@@ -75,8 +70,13 @@ class Octotiger(CMakePackage):
                when='+kokkos -cuda',
                )
 
-    depends_on('kokkos-nvcc-wrapper',
+    depends_on('kokkos-nvcc-wrapper~mpi',
                when='+kokkos +cuda',
+               patches=['Add-dumpversion-option-to-nvcc_wrapper.patch',
+                        'Eval-for-compiler-calls-nvvcc_wrapper.patch']
+               )
+    depends_on('kokkos-nvcc-wrapper+mpi',
+               when='+kokkos +cuda +mpi',
                patches=['Add-dumpversion-option-to-nvcc_wrapper.patch',
                         'Eval-for-compiler-calls-nvvcc_wrapper.patch']
                )
