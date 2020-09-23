@@ -1,0 +1,13 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 7ad7669..424037d 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -30,7 +30,7 @@ kokkos_check(OPTIONS HPX_ASYNC_DISPATCH)
+ add_library(hpx_kokkos INTERFACE)
+ target_include_directories(hpx_kokkos
+   INTERFACE $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+-            $<INSTALL_INTERFACE:include>)
++            $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
+ target_link_libraries(hpx_kokkos INTERFACE HPX::hpx Kokkos::kokkos)
+ 
+ include(GNUInstallDirs)

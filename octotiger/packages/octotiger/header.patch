@@ -1,0 +1,103 @@
+diff --git a/libs/algorithms/include/hpx/parallel/datapar/iterator_helpers.hpp b/libs/algorithms/include/hpx/parallel/datapar/iterator_helpers.hpp
+index 165d5fe016..94aafa50fd 100644
+--- a/libs/algorithms/include/hpx/parallel/datapar/iterator_helpers.hpp
++++ b/libs/algorithms/include/hpx/parallel/datapar/iterator_helpers.hpp
+@@ -9,9 +9,9 @@
+ #include <hpx/config.hpp>
+ 
+ #if defined(HPX_HAVE_DATAPAR)
+-#include <hpx/execution/parallel/traits/vector_pack_alignment_size.hpp>
+-#include <hpx/execution/parallel/traits/vector_pack_load_store.hpp>
+-#include <hpx/execution/parallel/traits/vector_pack_type.hpp>
++#include <hpx/execution/traits/vector_pack_alignment_size.hpp>
++#include <hpx/execution/traits/vector_pack_load_store.hpp>
++#include <hpx/execution/traits/vector_pack_type.hpp>
+ #include <hpx/functional/invoke_result.hpp>
+ 
+ #include <cstddef>
+diff --git a/libs/algorithms/include/hpx/parallel/datapar/loop.hpp b/libs/algorithms/include/hpx/parallel/datapar/loop.hpp
+index 483f10d1d4..a6481e6468 100644
+--- a/libs/algorithms/include/hpx/parallel/datapar/loop.hpp
++++ b/libs/algorithms/include/hpx/parallel/datapar/loop.hpp
+@@ -10,9 +10,9 @@
+ 
+ #if defined(HPX_HAVE_DATAPAR)
+ #include <hpx/execution/algorithms/detail/predicates.hpp>
+-#include <hpx/execution/parallel/traits/vector_pack_alignment_size.hpp>
+-#include <hpx/execution/parallel/traits/vector_pack_load_store.hpp>
+-#include <hpx/execution/parallel/traits/vector_pack_type.hpp>
++#include <hpx/execution/traits/vector_pack_alignment_size.hpp>
++#include <hpx/execution/traits/vector_pack_load_store.hpp>
++#include <hpx/execution/traits/vector_pack_type.hpp>
+ #include <hpx/execution/traits/is_execution_policy.hpp>
+ #include <hpx/executors/datapar/execution_policy_fwd.hpp>
+ #include <hpx/parallel/datapar/iterator_helpers.hpp>
+diff --git a/libs/algorithms/include/hpx/parallel/datapar/zip_iterator.hpp b/libs/algorithms/include/hpx/parallel/datapar/zip_iterator.hpp
+index fb4d9473aa..3a4eaabc40 100644
+--- a/libs/algorithms/include/hpx/parallel/datapar/zip_iterator.hpp
++++ b/libs/algorithms/include/hpx/parallel/datapar/zip_iterator.hpp
+@@ -14,9 +14,9 @@
+ #include <hpx/iterator_support/zip_iterator.hpp>
+ #include <hpx/type_support/pack.hpp>
+ 
+-#include <hpx/execution/parallel/traits/vector_pack_alignment_size.hpp>
+-#include <hpx/execution/parallel/traits/vector_pack_load_store.hpp>
+-#include <hpx/execution/parallel/traits/vector_pack_type.hpp>
++#include <hpx/execution/traits/vector_pack_alignment_size.hpp>
++#include <hpx/execution/traits/vector_pack_load_store.hpp>
++#include <hpx/execution/traits/vector_pack_type.hpp>
+ #include <hpx/parallel/datapar/iterator_helpers.hpp>
+ 
+ #include <algorithm>
+diff --git a/libs/execution/include/hpx/execution/traits/vector_pack_alignment_size.hpp b/libs/execution/include/hpx/execution/traits/vector_pack_alignment_size.hpp
+index 9cfa409d90..18f5045e84 100644
+--- a/libs/execution/include/hpx/execution/traits/vector_pack_alignment_size.hpp
++++ b/libs/execution/include/hpx/execution/traits/vector_pack_alignment_size.hpp
+@@ -69,7 +69,7 @@ namespace hpx { namespace parallel { namespace traits {
+ }}}    // namespace hpx::parallel::traits
+ 
+ #if !defined(__CUDACC__)
+-#include <hpx/execution/parallel/traits/detail/vc/vector_pack_alignment_size.hpp>
++#include <hpx/execution/traits/detail/vc/vector_pack_alignment_size.hpp>
+ #endif
+ 
+ #endif
+diff --git a/libs/execution/include/hpx/execution/traits/vector_pack_count_bits.hpp b/libs/execution/include/hpx/execution/traits/vector_pack_count_bits.hpp
+index 9256641412..440b13be53 100644
+--- a/libs/execution/include/hpx/execution/traits/vector_pack_count_bits.hpp
++++ b/libs/execution/include/hpx/execution/traits/vector_pack_count_bits.hpp
+@@ -21,7 +21,7 @@ namespace hpx { namespace parallel { namespace traits {
+ #if defined(HPX_HAVE_DATAPAR)
+ 
+ #if !defined(__CUDACC__)
+-#include <hpx/execution/parallel/traits/detail/vc/vector_pack_count_bits.hpp>
++#include <hpx/execution/traits/detail/vc/vector_pack_count_bits.hpp>
+ #endif
+ 
+ #endif
+diff --git a/libs/execution/include/hpx/execution/traits/vector_pack_load_store.hpp b/libs/execution/include/hpx/execution/traits/vector_pack_load_store.hpp
+index 890d9256ca..cbc8e5d212 100644
+--- a/libs/execution/include/hpx/execution/traits/vector_pack_load_store.hpp
++++ b/libs/execution/include/hpx/execution/traits/vector_pack_load_store.hpp
+@@ -25,7 +25,7 @@ namespace hpx { namespace parallel { namespace traits {
+ }}}    // namespace hpx::parallel::traits
+ 
+ #if !defined(__CUDACC__)
+-#include <hpx/execution/parallel/traits/detail/vc/vector_pack_load_store.hpp>
++#include <hpx/execution/traits/detail/vc/vector_pack_load_store.hpp>
+ #endif
+ 
+ #endif
+diff --git a/libs/execution/include/hpx/execution/traits/vector_pack_type.hpp b/libs/execution/include/hpx/execution/traits/vector_pack_type.hpp
+index 5f0cdcd338..bc8693da39 100644
+--- a/libs/execution/include/hpx/execution/traits/vector_pack_type.hpp
++++ b/libs/execution/include/hpx/execution/traits/vector_pack_type.hpp
+@@ -37,7 +37,7 @@ namespace hpx { namespace parallel { namespace traits {
+ }}}    // namespace hpx::parallel::traits
+ 
+ #if !defined(__CUDACC__)
+-#include <hpx/execution/parallel/traits/detail/vc/vector_pack_type.hpp>
++#include <hpx/execution/traits/detail/vc/vector_pack_type.hpp>
+ #endif
+ 
+ #endif

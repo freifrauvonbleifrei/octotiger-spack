@@ -1,0 +1,13 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 80b3ef5..bd99e20 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -11,6 +11,8 @@ project(HPXKokkos CXX)
+ find_package(HPX 1.5.0 REQUIRED)
+ find_package(Kokkos REQUIRED)
+ 
++enable_language(CUDA)
++
+ # Check that Kokkos and HPX options are consistent.
+ if(Kokkos_ENABLE_CUDA)
+   kokkos_check(OPTIONS CUDA_LAMBDA)

@@ -31,12 +31,6 @@ class Octotiger(CMakePackage):
 
 
     depends_on('cppuddle')
-    depends_on('cppuddle +cuda +mpi',
-               when='+kokkos +cuda +mpi',
-               )
-    depends_on('cppuddle -cuda +mpi',
-               when='+kokkos -cuda +mpi',
-               )
 
     depends_on('kokkos-hpx-interop +cuda',
                when='+kokkos +cuda',
@@ -47,31 +41,32 @@ class Octotiger(CMakePackage):
 
     depends_on('cmake@3.12.4:', type='build')
     depends_on('vc@1.4.1', when='+vc')
-    depends_on('boost@1.70.0 cxxstd=14 +mpi', when='+mpi')
-    depends_on('boost@1.70.0 cxxstd=14 -mpi', when='-mpi')
-    depends_on('hdf5@:1.10.999 +cxx +mpi', when='+mpi')
-    depends_on('hdf5@:1.10.999 +cxx -mpi', when='-mpi')
-    depends_on('silo +mpi', when='+mpi')
-    depends_on('silo -mpi', when='-mpi')
+    depends_on('boost@1.69.0 cxxstd=14 +mpi', when='+mpi')
+    depends_on('boost@1.69.0 cxxstd=14 -mpi', when='-mpi')
+    depends_on('hdf5 +mpi +threadsafe +szip +hl ', when='+mpi')
+    depends_on('hdf5 -mpi +threadsafe  +szip +hl', when='-mpi')
+    depends_on('silo@4.10.2 +mpi ', when='+mpi')
+    depends_on('silo@4.10.2 -mpi ', when='-mpi')
 
     depends_on('cuda', when='+cuda')
     
-    hpx_string = 'hpx@master cxxstd=14'
+    hpx_string = 'hpx@1.5.0 cxxstd=14'
     depends_on(hpx_string + ' +cuda', when='+cuda') #networking=mpi ?
     depends_on(hpx_string + ' -cuda', when='-cuda')
     #depends_on(hpx_string + ' +cuda', when='+cuda', patches='header.patch') #networking=mpi ?
     #depends_on(hpx_string + ' -cuda', when='-cuda', patches='header.patch')
 
-    kokkos_string = 'kokkos +serial +hpx +hpx_async_dispatch'
-    depends_on(kokkos_string + ' +cuda +cuda_lambda +wrapper',
-               when='+kokkos +cuda',
-               )
-    depends_on(kokkos_string + ' -cuda -cuda_lambda -wrapper',
-               when='+kokkos -cuda',
-               )
+    kokkos_string = 'kokkos +serial +hpx +hpx_async_dispatch +aggressive_vectorization '
+    #depends_on(kokkos_string + ' +cuda +cuda_lambda +wrapper ',
+    #           when='+kokkos +cuda',
+     #          )
+    #depends_on(kokkos_string + ' -cuda -cuda_lambda -wrapper',
+   #            when='+kokkos -cuda',
+   #            )
+    depends_on(kokkos_string + ' +cuda +cuda_lambda +wrapper ', when='+kokkos +cuda',)
+    depends_on(kokkos_string + ' -cuda -cuda_lambda -wrapper',when='+kokkos -cuda',)
 
-    depends_on('kokkos-nvcc-wrapper~mpi',
-               when='+kokkos +cuda',
+    depends_on('kokkos-nvcc-wrapper~mpi', when='+kokkos +cuda -mpi',
                patches=['Add-dumpversion-option-to-nvcc_wrapper.patch',
                         'Eval-for-compiler-calls-nvvcc_wrapper.patch']
                )
