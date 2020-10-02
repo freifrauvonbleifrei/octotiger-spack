@@ -41,8 +41,8 @@ class Octotiger(CMakePackage):
 
     depends_on('cmake@3.12.4:', type='build')
     depends_on('vc@1.4.1', when='+vc')
-    depends_on('boost@1.69.0 cxxstd=14 +mpi', when='+mpi')
-    depends_on('boost@1.69.0 cxxstd=14 -mpi', when='-mpi')
+    depends_on('boost@1.74.0 cxxstd=14 +mpi', when='+mpi')
+    depends_on('boost@1.74.0 cxxstd=14 -mpi', when='-mpi')
     depends_on('hdf5 +mpi +threadsafe +szip +hl ', when='+mpi')
     depends_on('hdf5 -mpi +threadsafe  +szip +hl', when='-mpi')
     depends_on('silo@4.10.2 +mpi ', when='+mpi')
@@ -56,15 +56,15 @@ class Octotiger(CMakePackage):
     #depends_on(hpx_string + ' +cuda', when='+cuda', patches='header.patch') #networking=mpi ?
     #depends_on(hpx_string + ' -cuda', when='-cuda', patches='header.patch')
 
-    kokkos_string = 'kokkos +serial +hpx +hpx_async_dispatch +aggressive_vectorization '
+    kokkos_string = 'kokkos@3.1 +serial +hpx +hpx_async_dispatch +aggressive_vectorization '
     #depends_on(kokkos_string + ' +cuda +cuda_lambda +wrapper ',
     #           when='+kokkos +cuda',
      #          )
     #depends_on(kokkos_string + ' -cuda -cuda_lambda -wrapper',
    #            when='+kokkos -cuda',
    #            )
-    depends_on(kokkos_string + ' +cuda +cuda_lambda +wrapper ', when='+kokkos +cuda',)
-    depends_on(kokkos_string + ' -cuda -cuda_lambda -wrapper',when='+kokkos -cuda',)
+    depends_on(kokkos_string + ' +cuda +cuda_lambda +wrapper ', when='+kokkos +cuda', patches=['kokkos_octo_devel.patch'])
+    depends_on(kokkos_string + ' -cuda -cuda_lambda -wrapper',when='+kokkos -cuda', patches=['kokkos_octo_devel.patch'])
 
     depends_on('kokkos-nvcc-wrapper~mpi', when='+kokkos +cuda -mpi',
                patches=['Add-dumpversion-option-to-nvcc_wrapper.patch',
