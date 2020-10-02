@@ -50,7 +50,7 @@ class Octotiger(CMakePackage):
 
     depends_on('cuda', when='+cuda')
     
-    hpx_string = 'hpx@1.5.0 cxxstd=14'
+    hpx_string = 'hpx cxxstd=14'
     depends_on(hpx_string + ' +cuda', when='+cuda') #networking=mpi ?
     depends_on(hpx_string + ' -cuda', when='-cuda')
     #depends_on(hpx_string + ' +cuda', when='+cuda', patches='header.patch') #networking=mpi ?
