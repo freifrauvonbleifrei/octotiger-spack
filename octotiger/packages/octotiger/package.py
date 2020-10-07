@@ -5,12 +5,8 @@ class Octotiger(CMakePackage):
     homepage = "https://github.com/STEllAR-GROUP/octotiger"
     url = "https://github.com/STEllAR-GROUP/octotiger"
 
-    version('octotiger_with_kokkos', git='https://github.com/STEllAR-GROUP/octotiger.git',
-            branch='octotiger_with_kokkos')
-    version('kokkos_alternative_build', git='https://github.com/STEllAR-GROUP/octotiger.git',
-            branch='kokkos_alternative_build')
-    version('master', git='https://github.com/STEllAR-GROUP/octotiger.git',
-            branch='master')
+    version('reconstruct_experimental', git='https://github.com/STEllAR-GROUP/octotiger.git',
+            branch='reconstruct_experimental')
 
     variant('cuda', default=True,
             description='Build octotiger with CUDA (also allows Kokkos kernels to run with CUDA)')
